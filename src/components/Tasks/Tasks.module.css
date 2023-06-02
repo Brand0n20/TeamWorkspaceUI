@@ -1,0 +1,54 @@
+.container {
+    padding-left: 20px;
+}
+
+.errMsg {
+    color: red;
+    font-size: 14px;
+    margin: 0px 2px 4px 4px;
+  }
+
+li {
+    list-style: none;
+}
+
+.button {
+    margin-left: 15px;
+}
+
+.content {
+    padding: 15px 15px 15px 15px;
+}
+
+.tasks {
+    width: 100%;
+    display: inline;
+    float: left;
+    margin-right: 20px;
+    padding-bottom: 20px;
+}
+
+.task {
+    background-color: rgb(127, 196, 234);
+}
+
+li {
+    display: inline-block;
+    padding-right: 15px;
+}
+
+.container {
+    padding-left: 20px;
+}
+
+.buttonSection {
+    margin-left: 15px;
+    background-color: rgb(201, 36, 36);
+    border-color:rgb(201, 36, 36) ;
+}
+
+.buttonSection:hover {
+    margin-left: 15px;
+    background-color: rgb(172, 34, 34);
+    border-color:rgb(198, 56, 56) ;
+}

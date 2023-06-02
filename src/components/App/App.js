@@ -1,17 +1,20 @@
 import './App.css';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from "react-bootstrap/Button";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import TasksPage from '../Tasks/Tasks';
+import HomePage from '../home-page/home-page';
+import Header from '../header/Header';
 
 function App() {
   return (
-  <form>
-    <div>
-      <h1>
-      <Button>Click Here</Button>
-      </h1>
-    </div>
-  </form>
+    <BrowserRouter>
+    <Header />
+    <Routes>
+    <Route exact path="/" element={<HomePage />} />
+      <Route exact path="/tasks" element={<TasksPage />} /> 
+    </Routes>
+    </BrowserRouter>
   )
 }
 
