@@ -3,6 +3,8 @@ import fetchAllTasks from "./TaskService";
 import constants from "../../utils/constants";
 import styles from './Tasks.module.css';
 import TaskCard from './TaskCard'
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 /**
  * A page where the tasks will be displayed
@@ -10,6 +12,7 @@ import TaskCard from './TaskCard'
 const TasksPage = () => {
     const [apiError, setApiError] = useState();
     const [tasks, setTasks] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchAllTasks(setTasks, setApiError);
@@ -31,6 +34,10 @@ const TasksPage = () => {
                     </div>
                 ))}
             </div>
+            <div>
+            <Button className="btn btn-info" style={{marginLeft: '10px'}}
+            onClick={() => navigate('/tasks/createTask')}> New Employee</Button>
+        </div>
         </div>
     )
 };

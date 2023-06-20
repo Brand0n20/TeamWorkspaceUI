@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import styles from "./Employees.module.css";
 import { createEmployee } from "./EmployeeService";
 import { useNavigate } from "react-router-dom";
+import CancelModal from "../CancelModal";
 
 const initialState = {
     firstName: null,
@@ -16,6 +17,7 @@ export const CreateEmployee = () => {
     const [employee, setEmployee] = useState(initialState);
     const [apiError, setApiError] = useState(false);
     let navigate = useNavigate();
+    const [show, setShow] = useState(false);
 
     const handleChange = (event) => {
         setEmployee({
@@ -24,10 +26,10 @@ export const CreateEmployee = () => {
         });
     };
 
-    const submitEmployee = () => {
-        createEmployee(employee, setApiError);
+    const submitEmployee = async () => {
+        await createEmployee(employee, setApiError);
         navigate('/employees');
-    }
+    };
 
     return (
         <div>
@@ -91,7 +93,8 @@ export const CreateEmployee = () => {
             style={{ margin: "10px 10px"}}
             onClick={submitEmployee}
             >Submit</Button>
-            <Button className="btn btn-danger">Cancel</Button>
+            <Button className="btn btn-danger" onClick={() => setShow(true)}>Cancel</Button>
+            <CancelModal onClose={() => setShow(false)} show={show} />
             </form>
         </div>
 

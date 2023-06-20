@@ -12,11 +12,23 @@ export const fetchAllEmployees = async(setEmployees, setApiError) => {
 };
 
 export const createEmployee = async(employeeData, setApiError) => {
-    await HttpHelper("/employees", "GET", employeeData)
+    await HttpHelper("/employees", "POST", employeeData)
     .then((response) => {
+      console.log(response);
         if (response.ok) {
             return response.json();
           }
           throw new Error(constants.API_ERROR);
         }).catch(() => setApiError);
+};
+
+export const deleteEmployee = async (id, employee, setApiError) => {
+    await HttpHelper(`/employees/${id}`, 'DELETE', employee)
+    .then((response) => {
+      console.log(response);
+      if (response.ok) {
+        return response;
+      }
+      throw new Error(constants.API_ERROR);
+    }).catch(() => setApiError(true));
 };

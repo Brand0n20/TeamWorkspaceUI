@@ -9,11 +9,15 @@ export const EmployeesPage = () => {
     let [employees, setEmployees] = useState([]);
     let [apiError, setApiError] = useState();
     let navigate = useNavigate();
+    let [employeeToDelete, setEmployeeToDelete] = useState([]);
+
+    const onDelete = (deletedEmployee) => {
+        setEmployeeToDelete({...employeeToDelete, deletedEmployee});
+    }
 
     useEffect(() => {
         fetchAllEmployees(setEmployees, setApiError);
-        console.log(employees);
-    }, [employees]);
+    }, [employeeToDelete]);
 
     return (
     <div>
@@ -26,7 +30,7 @@ export const EmployeesPage = () => {
         <div>
             {employees.map((employee) => (
                 <div key={employee.id} className="">
-                    <EmployeeCard employee={employee} />
+                    <EmployeeCard employee={employee} onDelete={onDelete}/>
                 </div>
             ))}
         </div>

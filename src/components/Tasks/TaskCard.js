@@ -16,6 +16,9 @@ const TaskCard = ( {task }) => {
         <li>
             Employee ID:{task.employeeID}
         </li>
+        <li>
+            Due Date:{task.dueDate}
+        </li>
         </div>
     </div>
    )

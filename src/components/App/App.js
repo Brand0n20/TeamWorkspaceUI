@@ -7,6 +7,7 @@ import HomePage from '../home-page/home-page';
 import Header from '../header/Header';
 import { EmployeesPage } from '../employees/EmployeesPage';
 import { CreateEmployee } from '../employees/CreateEmployee';
+import { CreateTask } from '../Tasks/CreateTask';
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
     <Routes>
     <Route exact path="/" element={<HomePage />} />
       <Route exact path="/tasks" element={<TasksPage />} /> 
+      <Route exact path='/tasks/createTask' element={<CreateTask />} />
       <Route exact path='/employees' element={<EmployeesPage />} />
       <Route exact path='/employees/createEmployee' element={<CreateEmployee />} />
+  
     </Routes>
     </BrowserRouter>
   )
