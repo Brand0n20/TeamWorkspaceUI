@@ -17,7 +17,6 @@ const TasksPage = () => {
     useEffect(() => {
         fetchAllTasks(setTasks, setApiError);
     }, []);
-    console.log(tasks);
 
     return (
         <div>

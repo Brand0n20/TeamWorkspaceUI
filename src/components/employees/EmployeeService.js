@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 import constants from "../../utils/constants";
 import HttpHelper from "../../utils/HttpHelper";
 
@@ -10,6 +11,17 @@ export const fetchAllEmployees = async(setEmployees, setApiError) => {
         throw new Error(constants.API_ERROR);
     }).then(json => setEmployees(json)).catch(() => setApiError(true));
 };
+
+export const getEmployee = async(id, setEmployee, setApiError) => {
+  console.log("Getting request ")
+  await HttpHelper(`/employees/${id}`, "GET")
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(constants.API_ERROR);
+  }).then(json => setEmployee(json)).catch(() => setApiError(true));
+}
 
 export const createEmployee = async(employeeData, setApiError) => {
     await HttpHelper("/employees", "POST", employeeData)
