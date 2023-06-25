@@ -37,7 +37,6 @@ export const createEmployee = async(employeeData, setApiError) => {
 export const deleteEmployee = async (id, employee, setApiError) => {
     await HttpHelper(`/employees/${id}`, 'DELETE', employee)
     .then((response) => {
-      console.log(response);
       if (response.ok) {
         return response;
       }

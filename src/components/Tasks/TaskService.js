@@ -32,4 +32,14 @@ export const createTask = async(newTask, setApiError) => {
     }).catch(() => setApiError);
 }
 
+export const deleteTask = async(id, task, setApiError) => {
+    await HttpHelper(`/tasks/${id}`, 'DELETE', task)
+    .then(() => {
+        if (response.ok) {
+            return response;
+          }
+          throw new Error(constants.API_ERROR);
+    }).catch(() => setApiError(true));
+}
+
 export default fetchAllTasks;
