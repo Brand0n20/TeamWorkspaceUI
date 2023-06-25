@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import styles from "./Employees.module.css";
 import { Button } from "react-bootstrap";
 import { deleteEmployee } from "./EmployeeService";
+import DeleteModal from "../DeleteModal";
 
 export const EmployeeCard = ({ employee, onDelete }) => {
 
     let [apiError, setApiError] = useState();
+    const [show, setShow] = useState(false);
+
     const handleDelete = async() => {
         await deleteEmployee(employee.id, employee, setApiError);
         console.log("Deleting");
@@ -33,7 +36,8 @@ export const EmployeeCard = ({ employee, onDelete }) => {
             Department: {employee.department}
         </li>
         </div>
-        <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
+        <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
+        <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>
     </div>
     )
 };

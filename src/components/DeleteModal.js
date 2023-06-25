@@ -17,7 +17,7 @@ const DeleteModal = ({ show, handleDelete, onClose }) => {
              Yes, I want to delete
             </div>   
             <div className="modalFooter">
-                <Button style={{marginRight: "10px"}} onClick={onClose}>Go Back to Tasks</Button>
+                <Button style={{marginRight: "10px"}} onClick={onClose}>Go Back</Button>
                 <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
             </div>
             </div>  
