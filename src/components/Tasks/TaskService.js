@@ -34,7 +34,7 @@ export const createTask = async(newTask, setApiError) => {
 
 export const deleteTask = async(id, task, setApiError) => {
     await HttpHelper(`/tasks/${id}`, 'DELETE', task)
-    .then(() => {
+    .then((response) => {
         if (response.ok) {
             return response;
           }

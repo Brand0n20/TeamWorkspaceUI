@@ -3,21 +3,28 @@ import constants from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import styles from './Tasks.module.css'
 import { getEmployee } from "../employees/EmployeeService";
+import { deleteTask } from "./TaskService";
+import { Button } from "react-bootstrap";
+import DeleteModal from "../DeleteModal";
 
-const TaskCard = ( { task }) => {
+const TaskCard = ( { task, onDelete }) => {
    const navigate = useNavigate();
     const [employee, setEmployee] = useState([]);
     const [apiError, setApiError] = useState();
+    const [show, setShow] = useState(false);
 
-
-        useEffect(() => {
+    useEffect(() => {
                 let id = task.employeeID;
                 getEmployee(id, setEmployee, setApiError);
             
-        }, [task]);
+    }, [task]);
    
+    const handleDelete = async() => {
+        await deleteTask(task.id, employee, setApiError);
+        console.log("Deleting");
+        onDelete(task);
+    };
 
-    console.log(employee);
    return (
     <div className={styles.content}>
         {apiError && (
@@ -40,6 +47,8 @@ const TaskCard = ( { task }) => {
             Due Date:{task.dueDate}
         </li>
         </div>
+        <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
+        <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>
     </div>
    )
 
