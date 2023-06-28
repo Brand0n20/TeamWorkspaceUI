@@ -48,7 +48,8 @@ const TaskCard = ( { task, onDelete }) => {
         </li>
         </div>
         <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
-        <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>
+        <DeleteModal onClose={() => setShow(false)} show={show} handleDelete={handleDelete} />
+        <Button className="btn btn-warning" onClick={() => navigate(`/tasks/${task.id}`)}>Update</Button>
     </div>
    )
 

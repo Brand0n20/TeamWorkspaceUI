@@ -3,6 +3,7 @@ import { createTask } from "./TaskService";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import CancelModal from "../CancelModal";
+import styles from "../employees/Employees.module.css"
 
 export const CreateTask = () => {
 
@@ -29,6 +30,7 @@ export const CreateTask = () => {
 
     return (
         <div>
+            <form className={styles.form}>
              <div className="form-group">
                 <label>Description: 
                 <input
@@ -67,6 +69,7 @@ export const CreateTask = () => {
             onClick={() => setShow(true)}
             >Cancel</Button>
             <CancelModal onClose={() => setShow(false)} show={show} />
+            </form>
         </div>
     )
 }

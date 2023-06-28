@@ -38,6 +38,7 @@ export const EmployeeCard = ({ employee, onDelete }) => {
         </div>
         <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
         <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>
+        <Button className="btn btn-warning">Update</Button>
     </div>
     )
 };
