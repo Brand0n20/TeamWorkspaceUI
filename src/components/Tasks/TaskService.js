@@ -2,8 +2,9 @@ import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
 const fetchAllTasks = async (setTasks, setApiError) => {
-    await HttpHelper("/tasks", 'GET')
+    await HttpHelper(`/tasks`, 'GET')
     .then((response) => {
+        console.log("getting response: " + response);
         if (response.ok) {
           return response.json();
         }
@@ -12,7 +13,7 @@ const fetchAllTasks = async (setTasks, setApiError) => {
 };
 
 export const fetchSingleTask = async (id, setTask, setApiError) => {
-    await HttpHelper(`tasks/${id}`, "GET")
+    await HttpHelper(`/tasks/${id}`, "GET")
     .then((response) => {
         if (response.ok) {
             return response.json();
@@ -22,7 +23,7 @@ export const fetchSingleTask = async (id, setTask, setApiError) => {
 };
 
 export const createTask = async(newTask, setApiError) => {
-    await HttpHelper('/tasks', "POST", newTask)
+    await HttpHelper(`/tasks`, "POST", newTask)
     .then((response) => {
         console.log(response);
           if (response.ok) {

@@ -8,6 +8,8 @@ import Header from '../header/Header';
 import { EmployeesPage } from '../employees/EmployeesPage';
 import { CreateEmployee } from '../employees/CreateEmployee';
 import { CreateTask } from '../Tasks/CreateTask';
+import { Login } from '../LoginPage/Login';
+import { Register } from '../LoginPage/Register';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
     <Header />
     <Routes>
     <Route exact path="/" element={<HomePage />} />
+      <Route exact path='/login' element={<Login />} />
+      <Route exact path='/register' element={<Register />} />
       <Route exact path="/tasks" element={<TasksPage />} /> 
       <Route exact path='/tasks/createTask' element={<CreateTask />} />
       <Route exact path='/employees' element={<EmployeesPage />} />

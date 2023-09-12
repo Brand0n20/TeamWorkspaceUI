@@ -12,6 +12,12 @@ export const EmployeeCard = ({ employee, onDelete }) => {
         onDelete(employee);
     };
 
+    let keys = Object.keys(employee); // NOT NEEDED, this just gets the field names of the object
+    let values = Object.values(employee);
+    values.map((v) => console.log(v));
+
+    // DOWN Below, the <strong> element just makes the Bold effect
+
     return (
         <div className={styles.content}>
              {apiError && (
@@ -20,18 +26,16 @@ export const EmployeeCard = ({ employee, onDelete }) => {
         data-testid="errMsg"
       >
         API error
-      </p>)}
+      </p>
+      )}
          <div className={styles.employee}>
-        <h4>{employee.firstName} {employee.lastName}</h4>
-        <li>
-            {employee.email}
-        </li>
-        <li>
-            {employee.jobTitle}
-        </li>
-        <li>
-            Department: {employee.department}
-        </li>
+         <ul>
+        {Object.keys(employee).map((key) => (
+          <li key={key}>
+            <strong>{key}:</strong> {JSON.stringify(employee[key])} 
+          </li>
+        ))}
+      </ul>
         </div>
         <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
     </div>

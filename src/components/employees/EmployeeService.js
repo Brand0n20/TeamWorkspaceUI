@@ -3,28 +3,33 @@ import constants from "../../utils/constants";
 import HttpHelper from "../../utils/HttpHelper";
 
 export const fetchAllEmployees = async(setEmployees, setApiError) => {
-    await HttpHelper("/employees", "GET")
-    .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error(constants.API_ERROR);
-    }).then(json => setEmployees(json)).catch(() => setApiError(true));
+    await fetch(`${constants.BASE_URL_API}/employees`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(setEmployees)
+        
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(constants.API_ERROR);
+    }).then(setEmployees).catch(() => setApiError(true));
 };
 
 export const getEmployee = async(id, setEmployee, setApiError) => {
-  console.log("Getting request ")
-  await HttpHelper(`/employees/${id}`, "GET")
+  await HttpHelper(`/employees/${id}`, 'GET')
   .then((response) => {
     if (response.ok) {
       return response.json();
     }
     throw new Error(constants.API_ERROR);
-  }).then(json => setEmployee(json)).catch(() => setApiError(true));
+  }).then(setEmployee).catch(() => setApiError(true));
 }
 
 export const createEmployee = async(employeeData, setApiError) => {
-    await HttpHelper("/employees", "POST", employeeData)
+    await HttpHelper(`/employees`, "POST", employeeData)
     .then((response) => {
       console.log(response);
         if (response.ok) {
