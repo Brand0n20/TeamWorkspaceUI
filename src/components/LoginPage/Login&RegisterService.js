@@ -2,16 +2,22 @@ import React from "react";
 import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
-
-export const login = (loginData, setApiError) => {
-}
-
 export const logout = () => {
     localStorage.removeItem("user")
 }
 
-export const register = async(registerData, setApiError) => {
-    await HttpHelper(`${constants.BASE_URL_API}/register`, "POST", registerData)
+// Send a POST request to the login endpoint
+export const login = async(loginData, setApiError) => {
+    const formData = new URLSearchParams();     // this is to url-encode the credentials. Ex. username=example&password=examplePassword
+    formData.append("username", loginData.username);
+    formData.append("password", loginData.password);
+    await fetch(`${constants.BASE_URL_API}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(), // Convert the form data to a string
+    })
     .then((response) => {
         console.log(response);
         if (response.ok) {

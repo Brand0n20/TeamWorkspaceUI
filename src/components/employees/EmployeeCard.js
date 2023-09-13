@@ -13,8 +13,8 @@ export const EmployeeCard = ({ employee, onDelete }) => {
     };
 
     let keys = Object.keys(employee); // NOT NEEDED, this just gets the field names of the object
-    let values = Object.values(employee);
-    values.map((v) => console.log(v));
+    const unwantedKeys = ["id", "password"]
+   
 
     // DOWN Below, the <strong> element just makes the Bold effect
 
@@ -30,10 +30,13 @@ export const EmployeeCard = ({ employee, onDelete }) => {
       )}
          <div className={styles.employee}>
          <ul>
-        {Object.keys(employee).map((key) => (
+        {keys.map((key) => (
+            // if the current key on the map is not included in the UnwantedKeys array, then display that key
+            !unwantedKeys.includes(key) && (   
           <li key={key}>
             <strong>{key}:</strong> {JSON.stringify(employee[key])} 
           </li>
+            )
         ))}
       </ul>
         </div>

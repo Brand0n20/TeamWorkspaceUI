@@ -7,7 +7,6 @@ const CancelModal = ({ onClose, show }) => {
     // We will handle show/hide by props.show value so we have 2 use cases
     // we will pass the show prop wherever we call the CancelModal
 
-    // this line means that the cancelModal won't show nothing if the show is set to false
     const navigate = useNavigate();
     const location = useLocation(); // used to retrieve current URL pathname
     // getting the first part of pathname. Ex. employees/createEmployee -> employees
@@ -27,9 +26,6 @@ const CancelModal = ({ onClose, show }) => {
             <div className={styles.modalHeader}>
             <h4>Are You Sure You Want to Cancel?</h4>
             </div>
-         <div className="modalBody">
-         Yes, I want to cancel
-        </div>   
         <div className="modalFooter">
             <Button style={{marginRight: "10px"}} onClick={onClose}>Go Back to Form</Button>
             <Button className="btn btn-danger" onClick={cancel}>Cancel</Button>
