@@ -12,6 +12,7 @@ export const fetchAllEmployees = async(setEmployees, setApiError) => {
         
     }).then((response) => {
       if (response.ok) {
+        console.log(response.status);
         return response.json();
       }
       throw new Error(constants.API_ERROR);

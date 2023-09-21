@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     let navigate = useNavigate();
-    console.log("Home")
     return (
     <div>
         <h1 className="text-center">Welcome to our 'To-Do Workpace' application</h1>
