@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react"
 import { Nav } from "react-bootstrap";
 import {NavLink } from "react-router-dom";
-import { getCurrentUser } from "../LoginPage/Login&RegisterService";
+import { getCurrentUser } from "../LoginPage/AuthService";
 
 // We use links instead of anchor tags because Anchor tags will reload the page and re-render all the components
 // while <Link> and <NavLink> will only re-render updated components matched with the URL path of the Route without reloading.

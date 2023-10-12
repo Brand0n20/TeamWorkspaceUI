@@ -25,6 +25,7 @@ export const login = async(loginData, setApiError) => {
           const jsonResponse = await response.json();
           const { email } = jsonResponse;
           sessionStorage.setItem("username", JSON.stringify(email))
+          console.log(sessionStorage.length);
           return response;
 
         } else {

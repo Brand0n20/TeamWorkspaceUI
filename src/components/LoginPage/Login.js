@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Button } from "react-bootstrap";
 import styles from "../employees/Employees.module.css"
 import { useNavigate } from "react-router-dom";
-import { login } from "./Login&RegisterService";
+import { login } from "./AuthService";
 import constants from "../../utils/constants";
 
 const initialState = {
