@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react"
-import fetchAllTasks from "./TaskService";
+import { fetchAllTasks } from "./TaskService";
 import constants from "../../utils/constants";
 import styles from './Tasks.module.css';
 import TaskCard from './TaskCard'
@@ -24,7 +24,7 @@ const TasksPage = () => {
 
     useEffect(() => {
         fetchAllTasks(setTasks, setApiError);
-    }, [deletedTasks]);
+    }, []);
 
     return (
         <div>

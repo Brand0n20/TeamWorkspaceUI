@@ -1,20 +1,16 @@
-import { json } from "react-router-dom";
 import constants from "../../utils/constants";
 import HttpHelper from "../../utils/HttpHelper";
 
 export const fetchAllEmployees = async(setEmployees, setApiError) => {
     await fetch(`${constants.BASE_URL_API}/employees`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(setEmployees)
-        
+      credentials: "include"  // include credentials for when using cookies
+
     }).then((response) => {
       if (response.ok) {
-        console.log(response.status);
         return response.json();
       }
+      console.log(Request.credentials);
       throw new Error(constants.API_ERROR);
     }).then(setEmployees).catch(() => setApiError(true));
 };

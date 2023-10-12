@@ -1,13 +1,7 @@
-import React from "react";
-import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
-export const logout = () => {
-    localStorage.removeItem("user")
-}
-
 // Send a POST request to the login endpoint
-export const login = async(loginData, setApiError, setUser) => {
+export const login = async(loginData, setApiError) => {
     const formData = new URLSearchParams();     // this is to url-encode the credentials. Ex. username=example&password=examplePassword
     formData.append("username", loginData.username);
     formData.append("password", loginData.password);
@@ -19,6 +13,7 @@ export const login = async(loginData, setApiError, setUser) => {
     try {
         const response = await fetch(`${constants.BASE_URL_API}/login`, {
           method: 'POST',
+          credentials: 'include',   // you need to include credentials for the cookies even before you've logged in
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -28,16 +23,10 @@ export const login = async(loginData, setApiError, setUser) => {
         if (response.ok) {
           // Wait for the JSON data to be resolved from the Promise
           const jsonResponse = await response.json();
-          const { access_token, refresh_token } = jsonResponse;
-          const { user } = jsonResponse
-    
-          // Store tokens in localStorage
-          console.log(refresh_token);
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('refresh_token', refresh_token);
-    
-          // Perform any other actions needed
-          setUser(user);
+          const { email } = jsonResponse;
+          sessionStorage.setItem("username", JSON.stringify(email))
+          return response;
+
         } else {
           throw new Error(constants.API_ERROR);
         }
@@ -46,3 +35,12 @@ export const login = async(loginData, setApiError, setUser) => {
         setApiError(true);
       }
 }
+
+export const logout = () => {
+  sessionStorage.removeItem("username");
+
+}
+
+export const getCurrentUser = () => {
+  return JSON.parse(sessionStorage.getItem("username"));
+};

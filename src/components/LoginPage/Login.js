@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Button } from "react-bootstrap";
 import styles from "../employees/Employees.module.css"
 import { useNavigate } from "react-router-dom";
@@ -15,10 +15,6 @@ export const Login = () => {
     const [employee, setEmployee] = useState(initialState);
     let [apiError, setApiError] = useState(false);
     let navigate = useNavigate();
-    const [user, setUser] = useState([]);
-    /*useEffect(() => {
-        fetchAllEmployees(setEmployeesInfo, setApiError);
-    }, []); */
 
     const handleChange = (event)=> {
         setEmployee({
@@ -28,9 +24,8 @@ export const Login = () => {
     }
 
     const handleLogin = async () => {
-        await login(employee, setApiError, setUser);
+        await login(employee, setApiError);
         navigate('/');
-        console.log(user);
     }
 
     return (
@@ -66,6 +61,5 @@ export const Login = () => {
         <Button onClick={handleLogin}>Log In</Button>
         </form>
     </div>
-    )
-
+    );
 }

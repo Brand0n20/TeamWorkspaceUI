@@ -1,13 +1,16 @@
 import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
-const fetchAllTasks = async (setTasks, setApiError) => {
-    await HttpHelper(`/tasks`, 'GET')
-    .then((response) => {
-        console.log("getting response: " + response);
+export const fetchAllTasks = async (setTasks, setApiError) => {
+    await fetch(`${constants.BASE_URL_API}/tasks`, {
+        method: 'GET',
+        credentials: "include"  // include credentials for when using cookies
+      
+    }).then((response) => {
         if (response.ok) {
           return response.json();
         }
+        console.log(Request.credentials);
         throw new Error(constants.API_ERROR);
     }).then(setTasks).catch(() => setApiError(true));
 };
@@ -42,5 +45,3 @@ export const deleteTask = async(id, task, setApiError) => {
           throw new Error(constants.API_ERROR);
     }).catch(() => setApiError(true));
 }
-
-export default fetchAllTasks;

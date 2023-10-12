@@ -13,17 +13,14 @@ const TaskCard = ( { task, onDelete }) => {
     const [apiError, setApiError] = useState();
     const [show, setShow] = useState(false);
 
-    useEffect(() => {
-                let id = task.employeeID;
-                getEmployee(id, setEmployee, setApiError);
-            
-    }, [task]);
+    let keys = Object.keys(task);
    
     const handleDelete = async() => {
         await deleteTask(task.id, employee, setApiError);
         console.log("Deleting");
         onDelete(task);
     };
+    console.log(keys);
 
    return (
     <div className={styles.content}>
@@ -34,18 +31,9 @@ const TaskCard = ( { task, onDelete }) => {
             )}
          <div className={styles.task}>
         <h4>Task {task.id}</h4>
-        <li>
-            {task.description}
-        </li>
-        <li>
-            Employee ID:{task.employeeID}
-        </li>
-        <li>
-            Employee Email: {employee.email}
-        </li>
-        <li>
-            Due Date:{task.dueDate}
-        </li>
+       <li>
+        Name: {task.name}
+       </li>
         </div>
         <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
         <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>

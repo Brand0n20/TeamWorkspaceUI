@@ -18,7 +18,6 @@ export const EmployeesPage = () => {
     useEffect(() => {
         fetchAllEmployees(setEmployees, setApiError);
     }, [employeeToDelete]);
-    console.log(employees);
 
     return (
     <div>
