@@ -1,3 +1,4 @@
+import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
 // Send a POST request to the login endpoint
@@ -24,7 +25,9 @@ export const login = async(loginData, setApiError) => {
           // Wait for the JSON data to be resolved from the Promise
           const jsonResponse = await response.json();
           const { email } = jsonResponse;
+          const { employee_name } = jsonResponse;
           sessionStorage.setItem("username", JSON.stringify(email))
+          sessionStorage.setItem("name", JSON.stringify(employee_name));
           console.log(sessionStorage.length);
           return response;
 
@@ -37,11 +40,20 @@ export const login = async(loginData, setApiError) => {
       }
 }
 
-export const logout = () => {
-  sessionStorage.removeItem("username");
-
+export const logout = (setApiError) => {
+ fetch(`${constants.BASE_URL_API}/signout`, {
+      method: 'POST',
+      credentials: 'include'
+ })
+ .then((response) => {
+  console.log(response);
+          if (response.ok) {
+              return response.json();
+            }
+            throw new Error(constants.API_ERROR);
+ }).catch(() => setApiError(true))
 }
 
 export const getCurrentUser = () => {
-  return JSON.parse(sessionStorage.getItem("username"));
+  return JSON.parse(sessionStorage.getItem("name"));
 };

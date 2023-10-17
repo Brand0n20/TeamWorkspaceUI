@@ -1,7 +1,8 @@
-import React, { useState, useEffect} from "react"
-import { Nav } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button, Nav } from "react-bootstrap";
 import {NavLink } from "react-router-dom";
-import { getCurrentUser } from "../LoginPage/AuthService";
+import { getCurrentUser, logout } from "../LoginPage/AuthService";
 
 // We use links instead of anchor tags because Anchor tags will reload the page and re-render all the components
 // while <Link> and <NavLink> will only re-render updated components matched with the URL path of the Route without reloading.
@@ -11,36 +12,55 @@ import { getCurrentUser } from "../LoginPage/AuthService";
 const Header = () => {
 
   const [currentUser, setCurrentUser] = useState(undefined);
+  let [show, setShow] = useState(false);
+  const location = useLocation();
+  const firstPath = location.pathname.split('/')[1]; 
+  const [apiError, setApiError] = useState(false);
+  const user = getCurrentUser();
+  let navigate = useNavigate();
 
   useEffect(() => {
-    const user = getCurrentUser;
     if (user) {
       setCurrentUser(user);
     }
-  }, []);
+  }, [user]);
 
-  const logOut = () => {
+
+
+  const logOut = async () => {
+    await logout(setApiError);
     setCurrentUser(undefined);
-  };
-
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("username");
+    console.log(sessionStorage.length);
+    navigate('/');
+  }
 
   return (
   <Nav className="navbar navbar-expand-lg navbar-light bg-light">
 
     <ul className="navbar-brand">To-Do Workpace</ul>
     <ul>
-    <CustomLink to="/" className="nav-item nav-link">Home</CustomLink>
-    </ul>
-    <ul>
-    <CustomLink to="/tasks" className="nav-item nav-link">Tasks</CustomLink>
-    </ul>
-    <ul>
-    <CustomLink to="/employees" className="nav-item nav-link">Employees</CustomLink>
+    <CustomLink to="/" className="nav-item nav-link" >Home</CustomLink>
     </ul>
     {currentUser && (
+      <>
+      <div className="collapse navbar-collapse">
         <ul>
-        <CustomLink to="/user" className="nav-item nav-link">User</CustomLink>
-      </ul>
+        <CustomLink to="/tasks" className="nav-item nav-link">Tasks</CustomLink>
+        </ul>
+        <ul>
+          <CustomLink to="/employees" className="nav-item nav-link">Employees</CustomLink>
+        </ul><ul>
+            <CustomLink to="/user" className="nav-item nav-link">Profile</CustomLink>
+          </ul>
+          <span className="navbar-text">
+          <Button className="btn btn-danger"
+            onClick={logOut}
+            >Log Out</Button> 
+          </span>
+          </div>
+          </>
     )}
   
   </Nav>

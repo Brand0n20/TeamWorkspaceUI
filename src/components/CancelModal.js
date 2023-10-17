@@ -27,8 +27,8 @@ const CancelModal = ({ onClose, show }) => {
             <h4>Are You Sure You Want to Cancel?</h4>
             </div>
         <div className="modalFooter">
-            <Button style={{marginRight: "10px"}} onClick={onClose}>Go Back to Form</Button>
-            <Button className="btn btn-danger" onClick={cancel}>Cancel</Button>
+            <Button style={{marginRight: "10px"}} onClick={onClose}>Yes</Button>
+            <Button className="btn btn-danger" onClick={cancel}>No</Button>
         </div>
         </div>  
     </div>

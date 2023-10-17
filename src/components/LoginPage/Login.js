@@ -4,6 +4,7 @@ import styles from "../employees/Employees.module.css"
 import { useNavigate } from "react-router-dom";
 import { login } from "./AuthService";
 import constants from "../../utils/constants";
+import { FormProvider, useForm } from "react-hook-form";
 
 const initialState = {
     username: null,
@@ -15,6 +16,7 @@ export const Login = () => {
     const [employee, setEmployee] = useState(initialState);
     let [apiError, setApiError] = useState(false);
     let navigate = useNavigate();
+    const methods = useForm();
 
     const handleChange = (event)=> {
         setEmployee({
@@ -28,14 +30,16 @@ export const Login = () => {
         navigate('/');
     }
 
+    const onSubmit = methods.handleSubmit(data => {
+        console.log(data);
+    })
+
     return (
-        <div>
-            {apiError && (
-                <p>
-                    {constants.API_ERROR}
-                </p>
-            )}
-        <form className={styles.form}>
+        <FormProvider {...methods}>
+        <form 
+        className={styles.form}
+        noValidate
+        >
         <div className="form-group">
             <label>Email: 
             <input
@@ -58,8 +62,8 @@ export const Login = () => {
             />
             </label>
         </div>
-        <Button onClick={handleLogin}>Log In</Button>
+        <Button onClick={onSubmit}>Log In</Button>
         </form>
-    </div>
+        </FormProvider>
     );
 }
