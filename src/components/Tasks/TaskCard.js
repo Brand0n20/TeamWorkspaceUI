@@ -5,22 +5,22 @@ import styles from './Tasks.module.css'
 import { getEmployee } from "../employees/EmployeeService";
 import { deleteTask } from "./TaskService";
 import { Button } from "react-bootstrap";
+import CancelModal from "../CancelModal";
 import DeleteModal from "../DeleteModal";
 
 const TaskCard = ( { task, onDelete }) => {
    const navigate = useNavigate();
     const [employee, setEmployee] = useState([]);
-    const [apiError, setApiError] = useState();
+    const [apiError, setApiError] = useState(false);
     const [show, setShow] = useState(false);
 
     let keys = Object.keys(task);
    
     const handleDelete = async() => {
         await deleteTask(task.id, employee, setApiError);
-        console.log("Deleting");
         onDelete(task);
     };
-    console.log(keys);
+
 
    return (
     <div className={styles.content}>
@@ -30,13 +30,22 @@ const TaskCard = ( { task, onDelete }) => {
                 </p>
             )}
          <div className={styles.task}>
-        <h4>Task {task.id}</h4>
+        <h4>Task #{task.id}</h4>
        <li>
-        Name: {task.name}
+        Description: {task.name}
+       </li>
+       <li>
+        Due Date: {task.dueDate}
+       </li>
+       <li>
+        Assigned to: <b>{task.employeeEmail}</b>
        </li>
         </div>
-        <Button className="btn btn-danger" onClick={(() => setShow(true))}>Delete</Button>
-        <DeleteModal onClose={() => setShow(true)} show={show} handleDelete={handleDelete}></DeleteModal>
+        <Button className="btn btn-danger"
+            onClick={() => setShow(true)}
+            >Delete</Button>
+            <DeleteModal onClose={() => setShow(false)} show={show} handleDelete={handleDelete}/>
+        <Button>Update</Button>
     </div>
    )
 

@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Employees.module.css";
 import { Button } from "react-bootstrap";
-import { deleteEmployee } from "./EmployeeService";
+import { deleteEmployee, fetchEmployeeByEmail, fetchEmployeeEmails } from "./EmployeeService";
+import { object } from "yup";
+import { useNavigate } from "react-router-dom";
+import { fetchEmployeeTasks } from "./EmployeeService";
 
-export const EmployeeCard = ({ employee, onDelete }) => {
+export const EmployeeCard = ({ employee, onDelete, employeeRole }) => {
 
     let [apiError, setApiError] = useState();
+    let navigate = useNavigate();
+    const [tasks, setTasks] = useState([]);
+    let taskNames = [];
     const handleDelete = async() => {
-        await deleteEmployee(employee.id, employee, setApiError);
-        console.log("Deleting");
+        await deleteEmployee(employee.email, employee, setApiError);
         onDelete(employee);
     };
 
     let keys = Object.keys(employee); // NOT NEEDED, this just gets the field names of the object
-    const unwantedKeys = ["id", "password"]
-   
+    let role = employee.role;
+    delete role.id;
+    const unwantedKeys = ["id", "password"];
+    
+    useEffect(() => {
+      fetchEmployeeTasks(employee.email, setTasks, setApiError);
+    }, [])
 
-    // DOWN Below, the <strong> element just makes the Bold effect
+    // Iterates over tasks array, gets the name of each task and pushes it to the taskNames array
+    for (let i=0; i < tasks.length; i++) {
+      taskNames.push(tasks[i].name);
+    }
 
     return (
         <div className={styles.content}>
@@ -38,9 +51,14 @@ export const EmployeeCard = ({ employee, onDelete }) => {
           </li>
             )
         ))}
+        <li>
+          <strong>Tasks Assigned: </strong>{taskNames.join(', ')}
+        </li>
       </ul>
         </div>
-        <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
+        {employeeRole == 'ADMIN' && 
+        <><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button><Button className="btn btn-secondary" onClick={() => navigate(`/employees/${employee.email}`)}>Update</Button></>
+        }
     </div>
     )
 };

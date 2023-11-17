@@ -15,14 +15,24 @@ export const fetchAllEmployees = async(setEmployees, setApiError) => {
     }).then(setEmployees).catch(() => setApiError(true));
 };
 
-export const getEmployee = async(id, setEmployee, setApiError) => {
-  await HttpHelper(`/employees/${id}`, 'GET')
+export const fetchEmployeeByEmail = async(email, setEmployee, setApiError) => {
+  await HttpHelper(`/employees/${email}`, 'GET')
   .then((response) => {
     if (response.ok) {
       return response.json();
     }
     throw new Error(constants.API_ERROR);
   }).then(setEmployee).catch(() => setApiError(true));
+}
+
+export const fetchEmployeeTasks = async(email, setTasks, setApiError) => {
+  await HttpHelper(`/employees/${email}/tasks`, 'GET')
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error(constants.API_ERROR);
+  }).then(setTasks).catch(() => setApiError(true));
 }
 
 export const createEmployee = async(employeeData, setApiError) => {
@@ -36,12 +46,25 @@ export const createEmployee = async(employeeData, setApiError) => {
         }).catch(() => setApiError);
 };
 
-export const deleteEmployee = async (id, employee, setApiError) => {
-    await HttpHelper(`/employees/${id}`, 'DELETE', employee)
+export const updateEmployee = async(email, employeeData, setApiError) => {
+  await HttpHelper(`/employees/${email}`, 'PUT', employeeData)
+  .then((response) => {
+    if (response.ok) {
+        return response.json();
+    }
+    throw new Error(constants.API_ERROR);
+  }).catch(() => setApiError);
+}
+
+export const deleteEmployee = async (email, employee, setApiError) => {
+    await HttpHelper(`/employees/${email}`, 'DELETE', employee)
     .then((response) => {
       if (response.ok) {
         return response;
       }
       throw new Error(constants.API_ERROR);
-    }).catch(() => setApiError(true));
+    }).catch((error) => {
+      console.log(error);
+      setApiError(true)
+    });
 };

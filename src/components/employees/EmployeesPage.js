@@ -4,8 +4,9 @@ import constants from "../../utils/constants";
 import { EmployeeCard } from "./EmployeeCard";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getCurrentUserRole } from "../LoginPage/AuthService";
 
-export const EmployeesPage = () => {
+export const EmployeesPage = ({role}) => {
     let [employees, setEmployees] = useState([]);
     let [apiError, setApiError] = useState();
     let navigate = useNavigate();
@@ -18,7 +19,7 @@ export const EmployeesPage = () => {
     useEffect(() => {
         fetchAllEmployees(setEmployees, setApiError);
     }, [employeeToDelete]);
-
+    
     return (
     <div>
         {apiError && (
@@ -30,13 +31,13 @@ export const EmployeesPage = () => {
         <div>
             {employees.map((employee) => (
                 <div key={employee.id} className="">
-                    <EmployeeCard employee={employee} onDelete={onDelete}/>
+                    <EmployeeCard employee={employee} onDelete={onDelete} employeeRole={role}/>
                 </div>
             ))}
         </div>
         <div>
-            <Button className="btn btn-info" style={{marginLeft: '10px'}}
-            onClick={() => navigate('/employees/createEmployee')}> New Employee</Button>
+            {role === 'ADMIN' && <Button className="btn btn-info" style={{marginLeft: '10px'}}
+            onClick={() => navigate('/employees/create')}> New Employee</Button>}
         </div>
     </div>
     )

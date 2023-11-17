@@ -6,12 +6,16 @@ import TasksPage from '../Tasks/Tasks';
 import HomePage from '../home-page/home-page';
 import Header from '../header/Header';
 import { EmployeesPage } from '../employees/EmployeesPage';
-import { CreateEmployee } from '../employees/CreateEmployee';
 import { CreateTask } from '../Tasks/CreateTask';
 import { Login } from '../LoginPage/Login';
-import { Register } from '../LoginPage/Register';
+import { CreateEmployee } from '../employees/CreateEmployee';
+import { EmployeeDetails } from '../employees/EmployeeDetails';
+import { getCurrentUserRole } from '../LoginPage/AuthService';
 
 function App() {
+
+  let role = getCurrentUserRole();
+  role = role.slice(1, role.length-1);
 
   return (
     <BrowserRouter>
@@ -19,11 +23,11 @@ function App() {
     <Routes>
     <Route exact path="/" element={<HomePage />} />
       <Route exact path='/login' element={<Login />} />
-      <Route exact path='/register' element={<Register />} />
       <Route exact path="/tasks" element={<TasksPage />} /> 
-      <Route exact path='/tasks/createTask' element={<CreateTask />} />
-      <Route exact path='/employees' element={<EmployeesPage />} />
-      <Route exact path='/employees/createEmployee' element={<CreateEmployee />} />
+      <Route exact path='/tasks/create' element={<CreateTask />} />
+      <Route exact path='/employees' element={<EmployeesPage role={role}/>} />
+      <Route exact path='/employees/:email' element={<EmployeeDetails role={role}/>} />
+      <Route exact path='/employees/create' element={<CreateEmployee role={role}/>} />
   
     </Routes>
     </BrowserRouter>

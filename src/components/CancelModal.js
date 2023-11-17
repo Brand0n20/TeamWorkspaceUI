@@ -11,7 +11,6 @@ const CancelModal = ({ onClose, show }) => {
     const location = useLocation(); // used to retrieve current URL pathname
     // getting the first part of pathname. Ex. employees/createEmployee -> employees
     const firstPath = location.pathname.split('/')[1];  
-    console.log(firstPath);
     const cancel = () => {
         onClose();
         navigate(`/${firstPath}`);  //dynamic way to go back to URL page path without the endpoint
@@ -27,8 +26,8 @@ const CancelModal = ({ onClose, show }) => {
             <h4>Are You Sure You Want to Cancel?</h4>
             </div>
         <div className="modalFooter">
-            <Button style={{marginRight: "10px"}} onClick={onClose}>Yes</Button>
-            <Button className="btn btn-danger" onClick={cancel}>No</Button>
+            <Button style={{marginRight: "10px"}} onClick={onClose}>No</Button>
+            <Button className="btn btn-danger" onClick={cancel}>Yes</Button>
         </div>
         </div>  
     </div>

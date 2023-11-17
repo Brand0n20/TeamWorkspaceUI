@@ -14,17 +14,18 @@ const TasksPage = () => {
     const [apiError, setApiError] = useState();
     const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
-    const [deletedTasks, setDeletedTasks] = useState([]);
-    const deleted = [];
+    const [deletedTask, setDeletedTask] = useState([]);
 
     const onDelete = (taskToDelete) => {
-        setDeletedTasks({...deletedTasks, taskToDelete});
+        setDeletedTask({...deletedTask, taskToDelete});
         //deleted.push(taskToDelete)
     }
 
     useEffect(() => {
         fetchAllTasks(setTasks, setApiError);
-    }, []);
+    }, [deletedTask]);
+
+    console.log(tasks);
 
     return (
         <div>
@@ -43,8 +44,7 @@ const TasksPage = () => {
             </div>
             <div>
             <Button className="btn btn-info" style={{marginLeft: '10px'}}
-            onClick={() => navigate('/tasks/createTask')}> New Task</Button>
-            <DeleteModal />
+            onClick={() => navigate('/tasks/create')}> New Task</Button>
         </div>
         </div>
     )

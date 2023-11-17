@@ -52,3 +52,11 @@ li {
     background-color: rgb(172, 34, 34);
     border-color:rgb(198, 56, 56) ;
 }
+
+.form {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid lightblue;
+    padding: 15px 15px;
+}

@@ -4,21 +4,34 @@ import styles from "./Employees.module.css";
 import { createEmployee } from "./EmployeeService";
 import { useNavigate } from "react-router-dom";
 import CancelModal from "../CancelModal";
+import { RegisterFormSchema } from "../../utils/ValidateForm";
 
 const initialState = {
-    firstName: null,
-    lastName: null,
+    name: null,
     email: null,
+    password: null,
     jobTitle: null,
-    department: null
+    role: {
+        name: null,
+    }
 };
+
+let regularJobs = ["Software Engineer", "Data Engineer", "Business Systems Analyst", "Quality Assurance Engineer"];
+let adminJobs = ["Scrum Master", "Product Owner", "Senior Architect"];
+let allJobs = regularJobs.concat(adminJobs);
 
 export const CreateEmployee = () => {
     const [employee, setEmployee] = useState(initialState);
     const [apiError, setApiError] = useState(false);
+    const [validationErrors, setValidationErrors] = useState([]);
     let navigate = useNavigate();
     const [show, setShow] = useState(false);
 
+    let nameValidationError = validationErrors.find(e => e.field === 'name');
+    let emailValidationError = validationErrors.find(e => e.field === 'email');
+    let passwordValidationError = validationErrors.find(e => e.field === 'password');
+    let jobTitleValidationError = validationErrors.find(e => e.field === 'jobTitle');
+    
     const handleChange = (event) => {
         setEmployee({
             ...employee,
@@ -26,34 +39,39 @@ export const CreateEmployee = () => {
         });
     };
 
+    if (regularJobs.includes(employee.jobTitle)) {
+        employee.role.name = "USER";
+    } else if (adminJobs.includes(employee.jobTitle)) {
+        employee.role.name = "ADMIN"
+    }
+
     const submitEmployee = async () => {
+        try {
+        await RegisterFormSchema.validate(employee, { abortEarly: false});
         await createEmployee(employee, setApiError);
         navigate('/employees');
+        } catch (error) {
+            let errors = [];
+            error.inner.forEach((e) => {
+                errors.push({ field: e.path, message: e.message });
+            });
+            setValidationErrors(errors);
+        }
     };
 
     return (
         <div>
             <form className={styles.form}>
             <div className="form-group">
-                <label>First Name: 
+                <label>Name: 
                 <input
                 className="form-control"
                 type="text" 
-                name="firstName" 
-                value={employee.firstName || ''} 
+                name="name" 
+                value={employee.name || ''} 
                 onChange={handleChange}
                 />
-                </label>
-            </div>
-            <div className="form-group">
-                <label>Last Name: 
-                <input
-                className="form-control" 
-                type="text" 
-                name="lastName" 
-                value={employee.lastName || ''} 
-                onChange={handleChange}
-                />
+                {nameValidationError && <span className="text-danger">{nameValidationError.message}</span>}
                 </label>
             </div>
             <div className="form-group">
@@ -65,28 +83,39 @@ export const CreateEmployee = () => {
                 value={employee.email || ''} 
                 onChange={handleChange}
                 />
+                {emailValidationError && <span className="text-danger">{emailValidationError.message}</span>}
+                </label>
+            </div>
+            <div className="form-group">
+                <label>Password: 
+                <input
+                className="form-control" 
+                type="password" 
+                name="password" 
+                value={employee.password || ''} 
+                onChange={handleChange}
+                />
+                {passwordValidationError && <span className="text-danger">{passwordValidationError.message}</span>}
                 </label>
             </div>
             <div className="form-group">
                 <label>Job title: 
-                <input
+                <select
                 className="form-control" 
-                type="text" 
+                type="dropdown" 
                 name="jobTitle" 
                 value={employee.jobTitle || ''} 
                 onChange={handleChange}
-                />
-                </label>
-            </div>
-            <div className="form-group">
-                <label>Department: 
-                <input
-                className="form-control" 
-                type="text" 
-                name="department" 
-                value={employee.department || ''} 
-                onChange={handleChange}
-                />
+                >
+                <option value="">--None--</option>
+                {allJobs.map(job => (
+                    <option key={job} value={job}>
+                        {job}
+                    </option>
+                )
+                )}
+                </select>
+                {jobTitleValidationError && <span className="text-danger">{jobTitleValidationError.message}</span>}
                 </label>
             </div>
             <Button

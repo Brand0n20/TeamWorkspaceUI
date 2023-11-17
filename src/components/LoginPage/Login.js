@@ -3,8 +3,7 @@ import { Button } from "react-bootstrap";
 import styles from "../employees/Employees.module.css"
 import { useNavigate } from "react-router-dom";
 import { login } from "./AuthService";
-import constants from "../../utils/constants";
-import { FormProvider, useForm } from "react-hook-form";
+import { LoginFormSchema, ValidateLoginForm } from "../../utils/ValidateForm";
 
 const initialState = {
     username: null,
@@ -16,7 +15,7 @@ export const Login = () => {
     const [employee, setEmployee] = useState(initialState);
     let [apiError, setApiError] = useState(false);
     let navigate = useNavigate();
-    const methods = useForm();
+    const [validationErrors, setValidationErrors] = useState([]);
 
     const handleChange = (event)=> {
         setEmployee({
@@ -26,22 +25,21 @@ export const Login = () => {
     }
 
     const handleLogin = async () => {
-        await login(employee, setApiError);
-        navigate('/');
-    }
+        try {
+            await login(employee, setApiError);
+            navigate('/');
 
-    const onSubmit = methods.handleSubmit(data => {
-        console.log(data);
-    })
+        } catch (error) {
+            setApiError(true);
+            console.log(apiError);
+    }
+}
+
 
     return (
-        <FormProvider {...methods}>
-        <form 
-        className={styles.form}
-        noValidate
-        >
+        <form className={styles.form}>
         <div className="form-group">
-            <label>Email: 
+            <label>Email:</label>
             <input
             className="form-control" 
             type="text" 
@@ -49,10 +47,10 @@ export const Login = () => {
             value={employee.username || ''} 
             onChange={handleChange}
             />
-            </label>
+             {validationErrors.username && <span className="text-danger">{validationErrors.username}</span>}
         </div>
         <div className="form-group">
-            <label>Password: 
+            <label>Password: </label>
             <input
             className="form-control" 
             type="password" 
@@ -60,10 +58,9 @@ export const Login = () => {
             value={employee.password || ''}
             onChange={handleChange} 
             />
-            </label>
+            {validationErrors.password && <span className="text-danger">{validationErrors.password}</span>}
         </div>
-        <Button onClick={onSubmit}>Log In</Button>
+        <Button onClick={handleLogin}>Log In</Button>
         </form>
-        </FormProvider>
     );
 }

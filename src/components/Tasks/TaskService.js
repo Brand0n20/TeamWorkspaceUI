@@ -15,6 +15,18 @@ export const fetchAllTasks = async (setTasks, setApiError) => {
     }).then(setTasks).catch(() => setApiError(true));
 };
 
+export const fetchTasksByEmail = async(email, setTasks, setApiError) => {
+    await HttpHelper(`/tasks/${email}`, 'GET')
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(constants.API_ERROR);
+    })
+    .then(setTasks)
+    .catch(() => setApiError(true));
+}
+
 export const fetchSingleTask = async (id, setTask, setApiError) => {
     await HttpHelper(`/tasks/${id}`, "GET")
     .then((response) => {
@@ -40,6 +52,7 @@ export const deleteTask = async(id, task, setApiError) => {
     await HttpHelper(`/tasks/${id}`, 'DELETE', task)
     .then((response) => {
         if (response.ok) {
+            console.log("Delete was succesful")
             return response;
           }
           throw new Error(constants.API_ERROR);

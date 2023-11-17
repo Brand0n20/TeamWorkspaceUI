@@ -12,7 +12,6 @@ import { getCurrentUser, logout } from "../LoginPage/AuthService";
 const Header = () => {
 
   const [currentUser, setCurrentUser] = useState(undefined);
-  let [show, setShow] = useState(false);
   const location = useLocation();
   const firstPath = location.pathname.split('/')[1]; 
   const [apiError, setApiError] = useState(false);
@@ -24,7 +23,6 @@ const Header = () => {
       setCurrentUser(user);
     }
   }, [user]);
-
 
 
   const logOut = async () => {
@@ -51,9 +49,7 @@ const Header = () => {
         </ul>
         <ul>
           <CustomLink to="/employees" className="nav-item nav-link">Employees</CustomLink>
-        </ul><ul>
-            <CustomLink to="/user" className="nav-item nav-link">Profile</CustomLink>
-          </ul>
+        </ul>
           <span className="navbar-text">
           <Button className="btn btn-danger"
             onClick={logOut}

@@ -11,6 +11,7 @@ import constants from "./constants";
 const HttpHelper = (route, method, payload) => fetch(constants.BASE_URL_API + route,
     {
       method,
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         // The HttpOnly cookie is automatically included in the request headers

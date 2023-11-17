@@ -26,8 +26,10 @@ export const login = async(loginData, setApiError) => {
           const jsonResponse = await response.json();
           const { email } = jsonResponse;
           const { employee_name } = jsonResponse;
+          const { roles } = jsonResponse;
           sessionStorage.setItem("username", JSON.stringify(email))
           sessionStorage.setItem("name", JSON.stringify(employee_name));
+          sessionStorage.setItem("roles", JSON.stringify(roles));
           console.log(sessionStorage.length);
           return response;
 
@@ -55,5 +57,10 @@ export const logout = (setApiError) => {
 }
 
 export const getCurrentUser = () => {
-  return JSON.parse(sessionStorage.getItem("name"));
+  return JSON.parse(sessionStorage.getItem('name'));
 };
+
+export const getCurrentUserRole = () => {
+  return JSON.parse(sessionStorage.getItem('roles'));
+};
+
