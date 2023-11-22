@@ -41,7 +41,7 @@ export const EmployeeCard = ({ employee, onDelete, employeeRole }) => {
         API error
       </p>
       )}
-         <div className={styles.employee}>
+         <div className="border border-primary">
          <ul>
         {keys.map((key) => (
             // if the current key on the map is not included in the UnwantedKeys array, then display that key

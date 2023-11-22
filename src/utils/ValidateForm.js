@@ -28,3 +28,8 @@ export const TaskFormSchema = yup.object().shape({
   'Date has to be a future date', isFutureDate),
   employeeEmail: yup.string().required('An employee must be selected')
 })
+
+export const LoginFormSchema = yup.object().shape({
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required')
+})

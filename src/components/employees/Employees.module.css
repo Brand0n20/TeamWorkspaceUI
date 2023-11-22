@@ -42,7 +42,7 @@ label {
 }
 
 .employee {
-    background-color: rgb(127, 196, 234);
+    background-color: 'btn btn-primary';
 }
 
 li {

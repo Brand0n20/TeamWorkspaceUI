@@ -29,7 +29,7 @@ const TaskCard = ( { task, onDelete }) => {
                     {constants.API_ERROR}
                 </p>
             )}
-         <div className={styles.task}>
+         <div className="border border-primary">
         <h4>Task #{task.id}</h4>
        <li>
         Description: {task.name}
@@ -41,11 +41,11 @@ const TaskCard = ( { task, onDelete }) => {
         Assigned to: <b>{task.employeeEmail}</b>
        </li>
         </div>
-        <Button className="btn btn-danger"
+        <Button className="btn btn-success"
             onClick={() => setShow(true)}
-            >Delete</Button>
+            >Mark as Complete</Button>
             <DeleteModal onClose={() => setShow(false)} show={show} handleDelete={handleDelete}/>
-        <Button>Update</Button>
+        <Button className="btn btn-secondary" onClick={()=> navigate(`/tasks/${task.id}`)}>Update</Button>
     </div>
    )
 

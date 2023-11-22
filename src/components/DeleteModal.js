@@ -23,11 +23,11 @@ const DeleteModal = ({ onClose, show, handleDelete }) => {
     <div className={styles.modal}>
         <div className={styles.modalContent}>
             <div className={styles.modalHeader}>
-            <h4>Are You Sure You Want to delete this task?</h4>
+            <h4>Is this task completed?</h4>
             </div>
         <div className="modalFooter">
-            <Button style={{marginRight: "10px"}} onClick={onClose}>No</Button>
-            <Button className="btn btn-danger" onClick={confirmDelete}>Yes</Button>
+            <Button className="btn btn-success" onClick={confirmDelete}>Yes</Button>
+            <Button style={{marginRight: "10px"}} className="btn btn-warning" onClick={onClose}>No</Button>
         </div>
         </div>  
     </div>

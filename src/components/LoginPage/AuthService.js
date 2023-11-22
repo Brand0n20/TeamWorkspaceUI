@@ -1,4 +1,3 @@
-import HttpHelper from "../../utils/HttpHelper";
 import constants from "../../utils/constants";
 
 // Send a POST request to the login endpoint
@@ -33,7 +32,7 @@ export const login = async(loginData, setApiError) => {
           console.log(sessionStorage.length);
           return response;
 
-        } else {
+        } else if (response.status === 403){
           throw new Error(constants.API_ERROR);
         }
       } catch (error) {

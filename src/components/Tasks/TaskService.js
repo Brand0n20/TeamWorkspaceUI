@@ -28,7 +28,7 @@ export const fetchTasksByEmail = async(email, setTasks, setApiError) => {
 }
 
 export const fetchSingleTask = async (id, setTask, setApiError) => {
-    await HttpHelper(`/tasks/${id}`, "GET")
+    await HttpHelper(`/tasks/task/${id}`, "GET")
     .then((response) => {
         if (response.ok) {
             return response.json();
@@ -44,8 +44,21 @@ export const createTask = async(newTask, setApiError) => {
           if (response.ok) {
               return response.json();
             }
+            console.log(Error.name);
             throw new Error(constants.API_ERROR);
     }).catch(() => setApiError);
+}
+
+export const updateTask = async(id, task, setApiError) => {
+    await HttpHelper(`/tasks/${id}`, 'PUT', task)
+    .then((response) => {
+        console.log(response)
+        if (response.ok) {
+            return response.json();
+        }
+        console.log(Error);
+        throw new Error(constants.API_ERROR);
+    }).catch(() => setApiError(true));
 }
 
 export const deleteTask = async(id, task, setApiError) => {

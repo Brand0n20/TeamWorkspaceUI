@@ -7,15 +7,13 @@ import { TaskFormSchema, isFutureDate } from "../../utils/ValidateForm";
 import { fetchAllEmployees } from "../employees/EmployeeService";
 import styles from "./Tasks.module.css";
 
+let initialState = {
+    name: null,
+    dueDate: null,
+    employeeEmail: null
+}
 
 export const CreateTask = () => {
-
-    let initialState = {
-        name: null,
-        dueDate: null,
-        employeeEmail: null
-    }
-
 
     const [newTask, setNewTask] = useState(initialState);
     const [apiError, setApiError] = useState(false);

@@ -6,6 +6,7 @@ import TaskCard from './TaskCard'
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
+import { SearcBar } from "../Search Bar/SearchBar";
 
 /**
  * A page where the tasks will be displayed
@@ -15,6 +16,7 @@ const TasksPage = () => {
     const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
     const [deletedTask, setDeletedTask] = useState([]);
+    let [noInput, setNoInput] = useState(true);
 
     const onDelete = (taskToDelete) => {
         setDeletedTask({...deletedTask, taskToDelete});
@@ -22,10 +24,10 @@ const TasksPage = () => {
     }
 
     useEffect(() => {
+        if (noInput) {
         fetchAllTasks(setTasks, setApiError);
-    }, [deletedTask]);
-
-    console.log(tasks);
+        }
+    }, [deletedTask, noInput]); 
 
     return (
         <div>
@@ -35,6 +37,9 @@ const TasksPage = () => {
                 </p>
             )}
             <h1 style={{ marginLeft: 15}}>Total Tasks</h1>
+            <span>
+            <SearcBar tasks={tasks} setTasks={setTasks} setNoInput={setNoInput}/>
+        </span>
             <div>
                 {tasks.map(task => (
                     <div key={task.id} className={styles.tasks}>
@@ -43,7 +48,7 @@ const TasksPage = () => {
                 ))}
             </div>
             <div>
-            <Button className="btn btn-info" style={{marginLeft: '10px'}}
+            <Button style={{marginLeft: '10px'}}
             onClick={() => navigate('/tasks/create')}> New Task</Button>
         </div>
         </div>
