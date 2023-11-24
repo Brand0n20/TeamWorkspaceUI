@@ -38,7 +38,7 @@ const TasksPage = () => {
             )}
             <h1 style={{ marginLeft: 15}}>Total Tasks</h1>
             <span>
-            <SearcBar tasks={tasks} setTasks={setTasks} setNoInput={setNoInput}/>
+            <SearcBar tasks={tasks} setTasks={setTasks} setNoInput={setNoInput} setApiError={setApiError}/>
         </span>
             <div>
                 {tasks.map(task => (

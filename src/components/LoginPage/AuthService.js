@@ -29,7 +29,7 @@ export const login = async(loginData, setApiError) => {
           sessionStorage.setItem("username", JSON.stringify(email))
           sessionStorage.setItem("name", JSON.stringify(employee_name));
           sessionStorage.setItem("roles", JSON.stringify(roles));
-          console.log(sessionStorage.length);
+          
           return response;
 
         } else if (response.status === 403){

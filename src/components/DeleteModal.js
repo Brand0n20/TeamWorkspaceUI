@@ -22,12 +22,12 @@ const DeleteModal = ({ onClose, show, handleDelete }) => {
     return (
     <div className={styles.modal}>
         <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
+            <div className="d-grid gap-2 d-md-flex justify-content-md-center">
             <h4>Is this task completed?</h4>
             </div>
-        <div className="modalFooter">
+            <div className="d-grid gap-2 d-md-flex justify-content-md-center">
             <Button className="btn btn-success" onClick={confirmDelete}>Yes</Button>
-            <Button style={{marginRight: "10px"}} className="btn btn-warning" onClick={onClose}>No</Button>
+            <Button className="btn btn-warning" onClick={onClose}>No</Button>
         </div>
         </div>  
     </div>

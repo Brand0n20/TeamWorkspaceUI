@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Button } from "react-bootstrap";
 import styles from "../employees/Employees.module.css"
 import { useNavigate } from "react-router-dom";
-import { login } from "./AuthService";
+import { getCurrentUser, getCurrentUserRole, login } from "./AuthService";
 import { LoginFormSchema, ValidateLoginForm } from "../../utils/ValidateForm";
 import { useData } from "../../utils/DataProvider";
 
@@ -17,8 +17,6 @@ export const Login = () => {
     let [apiError, setApiError] = useState(false);
     let navigate = useNavigate();
     const [validationErrors, setValidationErrors] = useState([]);
-    const { currentUser, setCurrentUser } = useData();
-
     let usernameValidationError = validationErrors.find(e => e.field === 'username');
     let passwordValidationError = validationErrors.find(e => e.field === 'password');
 
@@ -36,8 +34,8 @@ export const Login = () => {
             await LoginFormSchema.validate(employee, {abortEarly: false});
             const response = await login(employee, setApiError);
             if (response.ok) {
+                //setCurrentUser(employee);
                 navigate('/');
-                setCurrentUser(employee);
             } else if (response.status === 403) {
                 // Handle the 403 status accordingly, for example, show an error message.
                 console.log('Employee not found');
@@ -63,6 +61,9 @@ export const Login = () => {
         }
     }
 
+    /*useEffect(() => {
+        console.log(employee);
+    }, [currentUser]) */
 
     return (
         <div>

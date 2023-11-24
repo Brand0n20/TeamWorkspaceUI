@@ -5,13 +5,23 @@ import { EmployeeCard } from "./EmployeeCard";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { SearcBar } from "../Search Bar/SearchBar";
+import { getCurrentUserRole } from "../LoginPage/AuthService";
 
-export const EmployeesPage = ({role}) => {
+export const EmployeesPage = () => {
     let [employees, setEmployees] = useState([]);
     let [apiError, setApiError] = useState();
     let navigate = useNavigate();
     let [employeeToDelete, setEmployeeToDelete] = useState([]);
     let [noInput, setNoInput] = useState(true);
+    let [results, setResults] = useState([]); 
+    const [currentUserRole, setCurrentUserRole] = useState(undefined);
+    const role = getCurrentUserRole();
+
+    useEffect(() => {
+        if (role) {
+          setCurrentUserRole(role);
+        }
+      }, [role]);
 
     const onDelete = (deletedEmployee) => {
         setEmployeeToDelete({...employeeToDelete, deletedEmployee});
@@ -22,7 +32,7 @@ export const EmployeesPage = ({role}) => {
         fetchAllEmployees(setEmployees, setApiError);
         }
     }, [employeeToDelete, noInput]);
-    
+
     return (
     <div>
         {apiError && (
@@ -32,19 +42,38 @@ export const EmployeesPage = ({role}) => {
             )}
         <h1>Team Members</h1>
         <span>
-            <SearcBar employees={employees} setEmployees={setEmployees} setNoInput={setNoInput}/>
+            <SearcBar employees={employees} setEmployees={setEmployees} setNoInput={setNoInput} setResults={setResults} />
         </span>
-        <div className="d-grid gap-3">
-            {employees.map((employee) => (
-                <div key={employee.id}>
-                    <EmployeeCard employee={employee} onDelete={onDelete} employeeRole={role}/>
+        {results.length > 0 ? (<><div>{results.map((result) => (
+                <div key={result.id}>
+                    {employees
+                        .filter((employee) => employee.id === result.id)
+                        .map((filteredEmployee) => (
+                            <div key={filteredEmployee.id}>
+                                {/* Render EmployeeCard for the filtered employee */}
+                                <EmployeeCard
+                                    employee={filteredEmployee}
+                                    onDelete={onDelete}
+                                    employeeRole={role} />
+                            </div>
+
+                        ))}
                 </div>
-            ))}
-        </div>
-        <div>
-            {role === 'ADMIN' && <Button style={{marginLeft: '10px'}}
-            onClick={() => navigate('/employees/create')}> New Employee</Button>}
-        </div>
+            ))}</div><div>{role === '[ADMIN]' && <Button style={{ marginLeft: '10px' }}
+            onClick={() => navigate('/employees/create')}> New Employee</Button>}</div></>
+        ) : (
+        <><div className="d-grid gap-3">
+                    {employees.map((employee) => (
+                        <div key={employee.id}>
+                            <EmployeeCard employee={employee} onDelete={onDelete} employeeRole={role} />
+                        </div>
+                    ))}
+                </div><div>
+                        {role === '[ADMIN]' && <Button style={{ marginLeft: '10px' }}
+                            onClick={() => navigate('/employees/create')}> New Employee</Button>}
+                    </div></>
+             )
+        }
     </div>
     )
 };

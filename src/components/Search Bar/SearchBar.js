@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react"
 import "./SearchBar.module.css";
 import { useLocation } from "react-router-dom";
 
-
-export const SearcBar = ({ employees, setEmployees, setNoInput, tasks, setTasks }) => {
+export const SearcBar = ({ employees, setNoInput, tasks, setResults }) => {
     const [input, setInput] = useState("");
     const location = useLocation();
     const { pathname } = location;
@@ -14,29 +13,32 @@ export const SearcBar = ({ employees, setEmployees, setNoInput, tasks, setTasks 
         if (pathname.includes('employees')) {
         // searching if employee names contain the letters in the search bar value
         const results = employees.filter((employee) => {
-          return value && employee && employee.name && employee.name.toLowerCase().includes(value.toLowerCase());
+          return value && 
+          employee && 
+          employee.name && 
+          employee.name.toLowerCase().includes(value.toLowerCase());
         });
 
-        if (value === "") {
-            setNoInput(true);
-            setEmployees(employees); // You might want to reset it to the initial state
-          } else {
-            setNoInput(false);
-            setEmployees(results);
-          }
+        if (value === '') {
+        setNoInput(true);
+        setResults(employees);
+        } else {
+          setNoInput(false);
+          setResults(results);
+        }
 
         } else if (pathname.includes('tasks')) {
-            const results = tasks.filter((task) => {
+          try {
+            let results;
+            console.log(tasks);
+            results = tasks.filter((task) => {
                 return value && task && task.employeeEmail && task.employeeEmail.toLowerCase().includes(value.toLowerCase());
             })
-            if (value === "") {
-                setNoInput(true);
-                setTasks(tasks);
-              } else {
-                setNoInput(false);
-                setTasks(results);
-              }
-        }
+            console.log(results);
+          } catch (error) {
+              console.log(error);
+          }
+          }
       };
     
       return (

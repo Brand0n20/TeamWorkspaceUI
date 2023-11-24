@@ -56,8 +56,9 @@ export const EmployeeCard = ({ employee, onDelete, employeeRole }) => {
         </li>
       </ul>
         </div>
-        {employeeRole == 'ADMIN' && 
-        <><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button><Button className="btn btn-secondary" onClick={() => navigate(`/employees/${employee.email}`)}>Update</Button></>
+        {employeeRole === '[ADMIN]' && 
+        <><Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
+        <Button className="btn btn-secondary" onClick={() => navigate(`/employees/${employee.email}`)}>Update</Button></>
         }
     </div>
     )

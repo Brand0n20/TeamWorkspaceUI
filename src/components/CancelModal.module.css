@@ -1,6 +1,7 @@
 .modalContent {
     width: 500px;
     background-color: #fff;
+    padding: 10px
 }
 
 .modalHeader, .modalFooter {

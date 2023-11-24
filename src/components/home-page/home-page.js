@@ -6,9 +6,6 @@ import { getCurrentUser, logout } from "../LoginPage/AuthService";
 const HomePage = () => {
     let navigate = useNavigate();
     const [user, setUser] = useState(undefined);
-    let [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-    const [allData, setAllData] = useState([])
-    const [results, setResults] = useState([]);
 
       useEffect(() => {
         const fetchUser = async () => {
