@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
 import { SearcBar } from "../Search Bar/SearchBar";
+import { getCurrentUserRole } from "../LoginPage/AuthService";
 
 /**
  * A page where the tasks will be displayed
@@ -17,6 +18,15 @@ const TasksPage = () => {
     const navigate = useNavigate();
     const [deletedTask, setDeletedTask] = useState([]);
     let [noInput, setNoInput] = useState(true);
+    let [results, setResults] = useState([]); 
+    const [currentUserRole, setCurrentUserRole] = useState(undefined);
+    const role = getCurrentUserRole();
+
+    useEffect(() => {
+        if (role) {
+          setCurrentUserRole(role);
+        }
+      }, [role]);
 
     const onDelete = (taskToDelete) => {
         setDeletedTask({...deletedTask, taskToDelete});
@@ -38,8 +48,17 @@ const TasksPage = () => {
             )}
             <h1 style={{ marginLeft: 15}}>Total Tasks</h1>
             <span>
-            <SearcBar tasks={tasks} setTasks={setTasks} setNoInput={setNoInput} setApiError={setApiError}/>
+            <SearcBar tasks={tasks} setNoInput={setNoInput} setApiError={setApiError} setResults={setResults}/>
         </span>
+        {results.length > 0 ? (<div>{results.map((result) => (
+            <div key={result.id}>
+                {tasks.filter((task) => task.id === result.id).map((filteredTask) => (
+                    <div key={filteredTask.id}>
+                        <TaskCard data-testid="task" task={filteredTask} onDelete={onDelete}/>
+                    </div>
+                ))}
+            </div>
+        ))}</div>) : (
             <div>
                 {tasks.map(task => (
                     <div key={task.id} className={styles.tasks}>
@@ -47,6 +66,7 @@ const TasksPage = () => {
                     </div>
                 ))}
             </div>
+        )}
             <div>
             <Button style={{marginLeft: '10px'}}
             onClick={() => navigate('/tasks/create')}> New Task</Button>

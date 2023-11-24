@@ -28,15 +28,19 @@ export const SearcBar = ({ employees, setNoInput, tasks, setResults }) => {
         }
 
         } else if (pathname.includes('tasks')) {
-          try {
-            let results;
-            console.log(tasks);
-            results = tasks.filter((task) => {
-                return value && task && task.employeeEmail && task.employeeEmail.toLowerCase().includes(value.toLowerCase());
-            })
-            console.log(results);
-          } catch (error) {
-              console.log(error);
+          const results = tasks.filter((task) => {
+            return value && 
+            task && 
+            task.employeeEmail && 
+            task.employeeEmail.toLowerCase().includes(value.toLowerCase());
+          });
+  
+          if (value === '') {
+          setNoInput(true);
+          setResults(tasks);
+          } else {
+            setNoInput(false);
+            setResults(results);
           }
           }
       };

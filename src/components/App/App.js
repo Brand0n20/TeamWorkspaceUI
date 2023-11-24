@@ -10,7 +10,7 @@ import { CreateTask } from '../Tasks/CreateTask';
 import { Login } from '../LoginPage/Login';
 import { CreateEmployee } from '../employees/CreateEmployee';
 import { EmployeeDetails } from '../employees/EmployeeDetails';
-import { getCurrentUserRole, login, logout } from '../LoginPage/AuthService';
+import { getCurrentUserRole, getCurrentUser, logout } from '../LoginPage/AuthService';
 import { TaskDetails } from '../Tasks/TaskDetails';
 
 function App() {
@@ -22,7 +22,24 @@ function App() {
       if (role) {
         setCurrentUserRole(role);
       }
-    }, [role]);
+    }, [role, ]);
+
+    const [user, setUser] = useState(undefined);
+
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+            const userData = await getCurrentUser();
+            setUser(userData);
+        } catch (error) {
+            // Handle errors if necessary
+            console.error(error);
+        }
+        console.log("We got a current user");
+    };
+
+    fetchUser();
+    }, [sessionStorage.length, logout]);
 
   return (
     <BrowserRouter>

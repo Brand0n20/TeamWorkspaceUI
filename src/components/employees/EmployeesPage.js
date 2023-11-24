@@ -42,7 +42,7 @@ export const EmployeesPage = () => {
             )}
         <h1>Team Members</h1>
         <span>
-            <SearcBar employees={employees} setEmployees={setEmployees} setNoInput={setNoInput} setResults={setResults} />
+            <SearcBar employees={employees} setNoInput={setNoInput} setResults={setResults} />
         </span>
         {results.length > 0 ? (<><div>{results.map((result) => (
                 <div key={result.id}>
