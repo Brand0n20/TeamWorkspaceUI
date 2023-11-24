@@ -36,6 +36,7 @@ export const Login = () => {
             if (response.ok) {
                 //setCurrentUser(employee);
                 navigate('/');
+                window.location.reload(); // Reload the page
             } else if (response.status === 403) {
                 // Handle the 403 status accordingly, for example, show an error message.
                 console.log('Employee not found');
