@@ -1,18 +1,14 @@
-# Getting Started with Create React App
+# To-Do- Work Space UI (Team Work Space UI)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## The front-end of a fully functional application that is a collaborative task management tool designed to help teams organize and prioritize their work efficiently.
 
-## Available Scripts
+This project drew inspiration from ServiceNow's existing model to establish an effective process for teams to more efficiently manage their tasks. Within the TeamTaskManager system, user management is structured around distinct roles, primarily Admin and User, each with specific permissions and restrictions. Administrators possess elevated privileges such as: updating employee information, creating a new employee in the system, and deleting employees from the system. On the other hand, regular Users have restricted access, typically limited to task creation, assignment, updates, and completion. By implementing this role-based approach, TeamTaskManager offers a tailored experience for users based on their responsibilities, fostering a secure and efficient collaborative environment.
 
-In the project directory, you can run:
+## User Instructions
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone this project locally
+2. CD into the new root folder
+3. Open up the project in your ideal IDE and run "npm install" in the root folder to install any required dependencies
 
 ### `npm test`
 
@@ -29,43 +25,13 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
 ### Code Splitting
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+## Developer Instructions
